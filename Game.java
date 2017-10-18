@@ -113,20 +113,20 @@ public class Game extends JFrame {
                
         JPanel green = new JPanel();
         green.setPreferredSize(new Dimension(WINDOW_WIDTH,verticalPadding));
-        green.setBackground(Color.GREEN);
+        green.setBackground(Color.LIGHT_GRAY);
 
         JPanel yellow = new JPanel();
         yellow.setPreferredSize(new Dimension(horizontalPadding, boardHeight));
-        yellow.setBackground(Color.YELLOW);
+        yellow.setBackground(Color.LIGHT_GRAY);
 
         
         JPanel blue = new JPanel();
         blue.setPreferredSize(new Dimension(horizontalPadding, boardHeight));
-        blue.setBackground(Color.BLUE);
+        blue.setBackground(Color.LIGHT_GRAY);
         
         JPanel orange = new JPanel();
         orange.setPreferredSize(new Dimension(WINDOW_WIDTH,verticalPadding));
-        orange.setBackground(Color.ORANGE);
+        orange.setBackground(Color.LIGHT_GRAY);
         
         getContentPane().add(green, BorderLayout.NORTH);
         getContentPane().add(yellow, BorderLayout.WEST);
