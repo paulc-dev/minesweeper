@@ -134,7 +134,7 @@ public class Board extends JPanel{
     						handleSelection(finalI, finalJ);
     					} else if (SwingUtilities.isRightMouseButton(e)) {
     						handleFlag(finalI, finalJ);
-    					}    					
+    					}    					 
     				}
     			});
 
@@ -173,6 +173,7 @@ public class Board extends JPanel{
     }
     
     private void handleFlag(int y, int x) {
+    	// Check if square is not flagged yet
     	System.out.println("Square " + y + ", " + x + " flagged");
     	myBoard.flagSquare(y, x);
     	updateBoard();
@@ -184,16 +185,47 @@ public class Board extends JPanel{
     	for (int i=0;i<boardHeight;i++) {
     		for (int j=0;j<boardHeight;j++) {
     			String state = myBoard.checkSquare(i, j);
-    			if (state == "S") { // Square has already been selected
-        			//boardButtons[i][j].getModel().setEnabled(false);
-        			//boardButtons[i][j].getModel().setSelected(true);
-   					boardButtons[i][j].setIcon(selected);       			
-    			} else if (state == "F") { // Square has been flagged
-					boardButtons[i][j].setIcon(flagged);
-    			} else { // Square has not yet been selected
-   					boardButtons[i][j].setIcon(unselected);
-    			}
-    			
+    			switch (state) {
+    				case "S": boardButtons[i][j].setIcon(selected);
+    					break;
+    				case "S1": boardButtons[i][j].setIcon(selected1);
+    					break;
+    				case "S2": boardButtons[i][j].setIcon(selected2);
+    					break;
+    				case "S3": boardButtons[i][j].setIcon(selected3);
+    					break;
+    				case "S4": boardButtons[i][j].setIcon(selected4);
+    					break;
+    				case "S5": boardButtons[i][j].setIcon(selected5);
+    					break;
+    				case "S6": boardButtons[i][j].setIcon(selected6);
+    					break;
+    				case "S7": boardButtons[i][j].setIcon(selected7);
+    					break;
+    				case "S8": boardButtons[i][j].setIcon(selected8);
+    					break;
+    				case "FM" : boardButtons[i][j].setIcon(flagged);
+    					break;
+    				case "FE" : boardButtons[i][j].setIcon(flagged);
+    					break;
+    				case "F1" : boardButtons[i][j].setIcon(flagged);
+						break;
+    				case "F2" : boardButtons[i][j].setIcon(flagged);
+						break;
+    				case "F3" : boardButtons[i][j].setIcon(flagged);
+						break;
+    				case "F4" : boardButtons[i][j].setIcon(flagged);
+						break;
+    				case "F5" : boardButtons[i][j].setIcon(flagged);
+						break;
+    				case "F6" : boardButtons[i][j].setIcon(flagged);
+						break;
+    				case "F7" : boardButtons[i][j].setIcon(flagged);
+						break;
+    				case "F8" : boardButtons[i][j].setIcon(flagged);
+						break;
+    				default: boardButtons[i][j].setIcon(unselected);
+    			}    			
     		}
     	}
     }

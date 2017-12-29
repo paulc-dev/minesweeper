@@ -1,5 +1,6 @@
 package com.github.minesweeper;
 import java.util.Random;
+
 public class Minesweeper {
 	int height;
 	int width;
@@ -156,14 +157,59 @@ public class Minesweeper {
 				default:
 					break;
 			}
-			grid[y][x] = "S";
+			//grid[y][x] = "S";
 			return false;
 		}
 	}
 	public void flagSquare(int y, int x) {
+		String cellValue = grid[y][x];
+		System.out.println(cellValue);
 		if(y >= 0 && y < height && x >= 0 && x < width) {
-			if (grid[y][x] != "S") {
-				grid[y][x] = "F"; // The character 'F' will represent that a square has been flagged as possibly having a mine
+			if (!grid[y][x].contains("S")) {
+				switch (grid[y][x]) {
+					case "1": grid[y][x] = "F1";
+						break;
+					case "2": grid[y][x] = "F2";
+						break;
+					case "3": grid[y][x] = "F3";
+						break;
+					case "4": grid[y][x] = "F4";
+						break;
+					case "5": grid[y][x] = "F5";
+						break;
+					case "6": grid[y][x] = "F6";
+						break;
+					case "7": grid[y][x] = "F7";
+						break;
+					case "8": grid[y][x] = "F8";
+						break;
+					case "E": grid[y][x] = "FE";
+						break;
+					case "M": grid[y][x] = "FM";
+						break;
+					case "FE": grid[y][x] = "E";
+						break;
+					case "FM": grid[y][x] = "M";
+						break;
+					case "F1": grid[y][x] = "1";
+						break;
+					case "F2": grid[y][x] = "2";
+						break;
+					case "F3": grid[y][x] = "3";
+						break;
+					case "F4": grid[y][x] = "4";
+						break;
+					case "F5": grid[y][x] = "5";
+						break;
+					case "F6": grid[y][x] = "6";
+						break;
+					case "F7": grid[y][x] = "7";
+						break;
+					case "F8": grid[y][x] = "8";
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}
