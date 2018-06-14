@@ -155,10 +155,10 @@ public class Game extends JFrame {
 		boardWidth = cellSize * xCells;
 		horizontalPadding = (WINDOW_WIDTH - (cellSize * xCells))/2;
 		verticalPadding = (WINDOW_HEIGHT - (cellSize * yCells))/2;
-		System.out.println("BoardHeight: " + boardHeight);
-		System.out.println("BoardWidth: " + boardWidth);
-		System.out.println("HorizontalPadding: " + horizontalPadding);
-		System.out.println("VerticalPadding: " + verticalPadding);
+		//System.out.println("BoardHeight: " + boardHeight);
+		//System.out.println("BoardWidth: " + boardWidth);
+		//System.out.println("HorizontalPadding: " + horizontalPadding);
+		//System.out.println("VerticalPadding: " + verticalPadding);
 	}
 
     public static void main(String args[]) {

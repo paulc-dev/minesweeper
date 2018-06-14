@@ -54,12 +54,13 @@ public class Board extends JPanel{
 	ImageIcon selected8;
 	ImageIcon unselected;
 	ImageIcon flagged;
+	ImageIcon mine;
 	
     Board() {
     	myBoard = new Minesweeper();
         myBoard.populateMines();
         myBoard.findMines();
-        myBoard.drawBoard();
+        //myBoard.drawBoard();
        
         GridLayout layout = new GridLayout(boardHeight,boardWidth);
         JToolBar tools = new JToolBar();
@@ -96,7 +97,7 @@ public class Board extends JPanel{
     	myBoard = new Minesweeper(boardHeight,boardWidth,numberOfMines);
         myBoard.populateMines();
         myBoard.findMines();
-        myBoard.drawBoard();
+        //myBoard.drawBoard();
        
         GridLayout layout = new GridLayout(boardHeight,boardWidth);
         JToolBar tools = new JToolBar();
@@ -155,78 +156,83 @@ public class Board extends JPanel{
     	selected6 = new ImageIcon(ImageIO.read(getClass().getResource("images/selected6.PNG")));
     	selected7 = new ImageIcon(ImageIO.read(getClass().getResource("images/selected7.PNG")));
     	selected8 = new ImageIcon(ImageIO.read(getClass().getResource("images/selected8.PNG")));
+    	mine = new ImageIcon(ImageIO.read(getClass().getResource("images/mine.PNG")));
     }
     
     private void handleSelection(int y, int x) {
     	// First test that the square doesn't have a mine.
+    	
     	if (myBoard.selectSquare(y, x) == true) {
-    		System.out.println("Square selected has a mine! Game over.");
     		updateBoard();
-    		myBoard.drawBoard();
     	} else {
-    		System.out.println("No mine.");
+    		myBoard.cascadeEmptySquares(y, x);
     		updateBoard();
-    		myBoard.drawBoard();
+    		//myBoard.drawBoard();
     	}
-    	//if (myBoard.mineSelected(x,y))
-    	// Thhen
     }
     
     private void handleFlag(int y, int x) {
     	// Check if square is not flagged yet
-    	System.out.println("Square " + y + ", " + x + " flagged");
     	myBoard.flagSquare(y, x);
     	updateBoard();
-    	myBoard.drawBoard();
     }
     
     private void updateBoard() {
-    	System.out.println("Redrawing");
-    	for (int i=0;i<boardHeight;i++) {
-    		for (int j=0;j<boardHeight;j++) {
-    			String state = myBoard.checkSquare(i, j);
-    			switch (state) {
-    				case "S": boardButtons[i][j].setIcon(selected);
-    					break;
-    				case "S1": boardButtons[i][j].setIcon(selected1);
-    					break;
-    				case "S2": boardButtons[i][j].setIcon(selected2);
-    					break;
-    				case "S3": boardButtons[i][j].setIcon(selected3);
-    					break;
-    				case "S4": boardButtons[i][j].setIcon(selected4);
-    					break;
-    				case "S5": boardButtons[i][j].setIcon(selected5);
-    					break;
-    				case "S6": boardButtons[i][j].setIcon(selected6);
-    					break;
-    				case "S7": boardButtons[i][j].setIcon(selected7);
-    					break;
-    				case "S8": boardButtons[i][j].setIcon(selected8);
-    					break;
-    				case "FM" : boardButtons[i][j].setIcon(flagged);
-    					break;
-    				case "FE" : boardButtons[i][j].setIcon(flagged);
-    					break;
-    				case "F1" : boardButtons[i][j].setIcon(flagged);
-						break;
-    				case "F2" : boardButtons[i][j].setIcon(flagged);
-						break;
-    				case "F3" : boardButtons[i][j].setIcon(flagged);
-						break;
-    				case "F4" : boardButtons[i][j].setIcon(flagged);
-						break;
-    				case "F5" : boardButtons[i][j].setIcon(flagged);
-						break;
-    				case "F6" : boardButtons[i][j].setIcon(flagged);
-						break;
-    				case "F7" : boardButtons[i][j].setIcon(flagged);
-						break;
-    				case "F8" : boardButtons[i][j].setIcon(flagged);
-						break;
-    				default: boardButtons[i][j].setIcon(unselected);
-    			}    			
-    		}
-    	}
+    	boolean gameOver = myBoard.gameOver();
+    	
+    	if (!gameOver) { // How to draw the board when the game isn't over
+    		for (int i=0;i<boardHeight;i++) {
+    			for (int j=0;j<boardHeight;j++) {
+    				Cell state = myBoard.checkSquare(i, j);
+    				if (state.isSelected()) {
+    					int mineCount = state.getMineCount();
+    					if (state.getMineCount() == 0) {
+    						boardButtons[i][j].setIcon(selected);
+    					} else {
+    						switch(mineCount) {
+        						case 1: boardButtons[i][j].setIcon(selected1);
+        							break;
+        						case 2: boardButtons[i][j].setIcon(selected2);
+        							break;
+        						case 3: boardButtons[i][j].setIcon(selected3);
+        							break;
+        						case 4: boardButtons[i][j].setIcon(selected4);
+        							break;
+        						case 5: boardButtons[i][j].setIcon(selected5);
+        							break;
+        						case 6: boardButtons[i][j].setIcon(selected6);
+        							break;
+        						case 7: boardButtons[i][j].setIcon(selected7);
+        							break;
+        						case 8: boardButtons[i][j].setIcon(selected8);
+        							break;
+    						}
+    					}
+    				} else if (state.hasFlag()) {
+    						boardButtons[i][j].setIcon(flagged);
+
+    				} else {
+    					boardButtons[i][j].setIcon(unselected);
+    				}
+    			}//inner for
+    		}// outer for
+    	} // end if
+    	else { // how to draw the board when the game is over
+    		for (int i=0;i<boardHeight;i++) {
+    			for (int j=0;j<boardHeight;j++) {
+    				Cell state = myBoard.checkSquare(i, j);
+    				if (state.isSelected()) {
+    					boardButtons[i][j].setIcon(selected);
+    				} else if (state.hasMine() && state.hasFlag()) {
+    					boardButtons[i][j].setIcon(mine);
+    				} else if (state.hasMine()) {		
+    					boardButtons[i][j].setIcon(mine);
+    				} else {
+    					boardButtons[i][j].setIcon(unselected);
+    				}
+    			}//inner for
+    		}// outer for
+    	} // end else
+
     }
 }
