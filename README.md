@@ -1,4 +1,2 @@
 # minesweeper
-A simple minesweeper implementation in Java
-
-Adding an file
+This is my implementation of a minesweeper game.
