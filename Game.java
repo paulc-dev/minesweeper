@@ -110,28 +110,28 @@ public class Game extends JFrame {
         intermediateMi.addActionListener(difficultyChanged);
         advancedMi.addActionListener(difficultyChanged);
         exitMi.addActionListener(exitGame);
-               
-        JPanel green = new JPanel();
-        green.setPreferredSize(new Dimension(WINDOW_WIDTH,verticalPadding));
-        green.setBackground(Color.LIGHT_GRAY);
-
-        JPanel yellow = new JPanel();
-        yellow.setPreferredSize(new Dimension(horizontalPadding, boardHeight));
-        yellow.setBackground(Color.LIGHT_GRAY);
-
         
-        JPanel blue = new JPanel();
-        blue.setPreferredSize(new Dimension(horizontalPadding, boardHeight));
-        blue.setBackground(Color.LIGHT_GRAY);
+        // The actual minesweeper board gets positioned inside 4 JPanels.
+        JPanel northPanel = new JPanel();
+        northPanel.setPreferredSize(new Dimension(WINDOW_WIDTH,verticalPadding));
+        northPanel.setBackground(Color.LIGHT_GRAY);
         
-        JPanel orange = new JPanel();
-        orange.setPreferredSize(new Dimension(WINDOW_WIDTH,verticalPadding));
-        orange.setBackground(Color.LIGHT_GRAY);
+        JPanel westPanel = new JPanel();
+        westPanel.setPreferredSize(new Dimension(horizontalPadding, boardHeight));
+        westPanel.setBackground(Color.LIGHT_GRAY);
+                
+        JPanel eastPanel = new JPanel();
+        eastPanel.setPreferredSize(new Dimension(horizontalPadding, boardHeight));
+        eastPanel.setBackground(Color.LIGHT_GRAY);
         
-        getContentPane().add(green, BorderLayout.NORTH);
-        getContentPane().add(yellow, BorderLayout.WEST);
-        getContentPane().add(blue, BorderLayout.EAST);
-        getContentPane().add(orange, BorderLayout.SOUTH);
+        JPanel southPanel = new JPanel();
+        southPanel.setPreferredSize(new Dimension(WINDOW_WIDTH,verticalPadding));
+        southPanel.setBackground(Color.LIGHT_GRAY);
+        
+        getContentPane().add(northPanel, BorderLayout.NORTH);
+        getContentPane().add(westPanel, BorderLayout.WEST);
+        getContentPane().add(eastPanel, BorderLayout.EAST);
+        getContentPane().add(southPanel, BorderLayout.SOUTH);
         getContentPane().add(mineBoard, BorderLayout.CENTER);
              
         //add(new Board());

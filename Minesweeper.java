@@ -200,6 +200,18 @@ public class Minesweeper {
 		}
 	}
 	
+	public boolean hasFlag(int y, int x) {
+		if (grid[y][x].hasFlag()) {
+			return true;
+		} else { 
+			return false;
+		}
+	}
+	
+	public void removeFlag(int y, int x) {
+		grid[y][x].setFlagged(false);
+	}
+	
 	public void revealMines(int y, int x) { 
 		// Finds adjacent squares to a clicked square that can be revealed
 		
@@ -276,6 +288,25 @@ public class Minesweeper {
 	}
 	
 	public boolean gameOver() {
+		boolean noEmptySquares = true;
+		
+		for (int i=0;i<height;i++) {
+			for (int j=0;j<width;j++) {
+				if (!grid[i][j].isSelected()) {
+					if (grid[i][j].hasFlag()) {
+						if(!grid[i][j].hasMine()) {
+							noEmptySquares = false;
+						}
+					} else {
+						if(!grid[i][j].hasMine()) {
+							noEmptySquares = false;
+						}
+					}
+				}
+			}
+		}
+			
+		gameOver = noEmptySquares;
 		return gameOver;
 	}
 	

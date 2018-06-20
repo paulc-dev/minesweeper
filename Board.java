@@ -173,12 +173,20 @@ public class Board extends JPanel{
     
     private void handleFlag(int y, int x) {
     	// Check if square is not flagged yet
-    	myBoard.flagSquare(y, x);
+    	//if (!myBoard.)
+    	if (myBoard.hasFlag(y,x)) {
+    		myBoard.removeFlag(y, x);
+    	} else {
+    		myBoard.flagSquare(y, x);
+    	}
     	updateBoard();
     }
     
     private void updateBoard() {
     	boolean gameOver = myBoard.gameOver();
+    	if (gameOver) {
+    		System.out.println("GAME OVER");
+    	}
     	
     	if (!gameOver) { // How to draw the board when the game isn't over
     		for (int i=0;i<boardHeight;i++) {
