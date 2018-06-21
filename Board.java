@@ -182,13 +182,14 @@ public class Board extends JPanel{
     	updateBoard();
     }
     
-    private void updateBoard() {
-    	boolean gameOver = myBoard.gameOver();
-    	if (gameOver) {
-    		System.out.println("GAME OVER");
-    	}
+    private void updateBoard() {    
+    	boolean gameOver = myBoard.checkGameOver();
+    	boolean gameWon = myBoard.gameWon();
     	
-    	if (!gameOver) { // How to draw the board when the game isn't over
+    	if (!gameOver || gameWon) { // How to draw the board when the game isn't over
+    		if (gameWon) {
+    			System.out.println("You won");
+    		}
     		for (int i=0;i<boardHeight;i++) {
     			for (int j=0;j<boardHeight;j++) {
     				Cell state = myBoard.checkSquare(i, j);
@@ -224,8 +225,8 @@ public class Board extends JPanel{
     				}
     			}//inner for
     		}// outer for
-    	} // end if
-    	else { // how to draw the board when the game is over
+    	} else if (gameOver && !gameWon) { // how to draw the board when the game is over
+    		System.out.println("Game over. You lost");
     		for (int i=0;i<boardHeight;i++) {
     			for (int j=0;j<boardHeight;j++) {
     				Cell state = myBoard.checkSquare(i, j);

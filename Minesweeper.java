@@ -5,6 +5,7 @@ import java.util.Stack;
 
 public class Minesweeper {
 	boolean gameOver;
+	boolean gameWon;
 	int height;
 	int width;
 	int mines;
@@ -280,6 +281,7 @@ public class Minesweeper {
 	
 	public boolean mineSelected(int y, int x) {
 		if (grid[y][x].hasMine()) {
+			gameOver = true;
 			return true;
 		} else {
 			grid[y][x].setSelected();
@@ -287,27 +289,36 @@ public class Minesweeper {
 		}
 	}
 	
-	public boolean gameOver() {
+	public boolean checkGameOver() {
 		boolean noEmptySquares = true;
 		
-		for (int i=0;i<height;i++) {
-			for (int j=0;j<width;j++) {
-				if (!grid[i][j].isSelected()) {
-					if (grid[i][j].hasFlag()) {
-						if(!grid[i][j].hasMine()) {
-							noEmptySquares = false;
-						}
-					} else {
-						if(!grid[i][j].hasMine()) {
-							noEmptySquares = false;
+		if (!gameOver) {
+			for (int i=0;i<height;i++) {
+				for (int j=0;j<width;j++) {
+					if (!grid[i][j].isSelected()) {
+						if (grid[i][j].hasFlag()) {
+							if(!grid[i][j].hasMine()) {
+								noEmptySquares = false;
+							}
+						} else {
+							if(!grid[i][j].hasMine()) {
+								noEmptySquares = false;
+							}
 						}
 					}
 				}
 			}
-		}
-			
-		gameOver = noEmptySquares;
+			if (noEmptySquares) {
+				gameWon = true;
+			}
+			gameOver = noEmptySquares;
+		}	
+		
 		return gameOver;
+	}
+	
+	public boolean gameWon() {
+		return gameWon;
 	}
 	
 	
