@@ -1,2 +1,2 @@
 # minesweeper
-This is my implementation of a minesweeper game. The game is currently under development and is designed as a desktop application.
+This is my implementation of a minesweeper game. The game is currently under development and has been designed as a desktop application.
